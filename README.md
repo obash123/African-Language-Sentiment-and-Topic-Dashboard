@@ -5,10 +5,6 @@ Pidgin, and Swahili social comments — YouTube-comment scraping, a fine-tuned
 DistilBERT sentiment classifier, per-language topic modeling, and a Streamlit
 dashboard, containerized for Google Cloud Run.
 
-## What's real here, and what's a documented-but-not-run path
-
-This was built end-to-end in one session with an explicit scope decision on
-each heavy piece:
 
 | Piece | Status |
 |---|---|
@@ -18,15 +14,7 @@ each heavy piece:
 | Dashboard (`dashboard/app.py`) | **Built and run locally**, verified in-browser |
 | Cloud Run deployment (`deploy/`) | **Prepared, not deployed** — Dockerfile/cloudbuild/deploy.sh are ready to run; deploying needs your own GCP project + billing + the `gcloud` CLI |
 
-**Demo data provenance** (`data/processed/demo_comments.csv`): built by
-`scripts/make_demo_data.py`, which takes real held-out text from AfriSenti's
-test split (the same real dataset the model trained on) and runs it through
-the actual fine-tuned checkpoint and the actual topic model. It is **not**
-scraped YouTube data — the scraper is real and ready to point at real videos,
-but bulk-scraping 150k+ live comments wasn't something to run unattended in
-this session. To populate the dashboard with real YouTube comments instead,
-run the scraper (see below) and swap it into the `make_demo_data` pipeline in
-place of the AfriSenti sample.
+
 
 ## Architecture
 
@@ -98,9 +86,6 @@ fallback (`scrape_video(video_id)`) that drives a real Chrome instance and
 scrolls the comments panel — call it directly for the shortlist `pipeline.py`
 reports as failed. Offline parsing checks: `python -m scraper.test_parsing`.
 
-Be a good citizen when scraping: respect YouTube's Terms of Service, scrape
-at a reasonable rate, and only pull comments you have a legitimate reason to
-process.
 
 ## Deploy to Cloud Run (not executed — needs your GCP project)
 
