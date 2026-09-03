@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/raw/*
+!data/raw/.gitkeep
+models/sentiment-distilbert/*
+!models/sentiment-distilbert/.gitkeep
+*.log
+.streamlit/
+.DS_Store

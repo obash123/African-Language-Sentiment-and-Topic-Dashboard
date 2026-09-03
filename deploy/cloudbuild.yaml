@@ -1,0 +1,14 @@
+# Cloud Build config for building + pushing the dashboard image.
+# Not executed by this project's tooling — run manually with:
+#   gcloud builds submit --config deploy/cloudbuild.yaml --substitutions=_IMAGE=<image-tag> ..
+# from the project root (the Dockerfile's COPY paths are relative to repo root).
+
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-f", "deploy/Dockerfile", "-t", "${_IMAGE}", "."]
+
+images:
+  - "${_IMAGE}"
+
+substitutions:
+  _IMAGE: "gcr.io/PROJECT_ID/african-sentiment-dashboard:latest"
